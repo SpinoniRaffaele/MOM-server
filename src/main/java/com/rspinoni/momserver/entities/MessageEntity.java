@@ -12,12 +12,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table
-public class UserEntity {
-
-  private String deviceId;
+public class MessageEntity {
 
   @Id
-  private String phoneNumber;
+  private String id;
 
-  private String preKey;
+  private String sendersPhoneNumber;
+
+  private String receiversPhoneNumber;
+
+  private String content;
 }
