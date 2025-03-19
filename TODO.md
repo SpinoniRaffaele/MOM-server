@@ -1,6 +1,6 @@
 ## Registration
 the client generates a random uuid and stores it locally (the random uuid is the device identifier). 
-It sends the phone number and the  uuid to the server. (Phone number Should be verified). 
+It sends the phone number and the uuid to the server. (Phone number Should be verified). 
 The server stores phone numbers and uuid to database. ✅
 (If the phone number was already there it will substitute the uuid) ✅
 After it has been registered, the user generate and stores a signal Entity with the prekey 

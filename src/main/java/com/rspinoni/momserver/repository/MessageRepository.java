@@ -7,10 +7,13 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.rspinoni.momserver.entities.MessageEntity;
-import com.rspinoni.momserver.entities.UserEntity;
+import jakarta.transaction.Transactional;
 
-public interface MessageRepository extends CrudRepository<UserEntity, String> {
+public interface MessageRepository extends CrudRepository<MessageEntity, String> {
 
   @Query("FROM MessageEntity m WHERE m.receiversPhoneNumber = :phoneNumber")
   List<MessageEntity> findAllByReceiversPhoneNumber(@Param("phoneNumber") String phoneNumber);
+
+  @Transactional
+  long deleteBySendersPhoneNumber(@Param("sendersPhoneNumber") String sendersPhoneNumber);
 }

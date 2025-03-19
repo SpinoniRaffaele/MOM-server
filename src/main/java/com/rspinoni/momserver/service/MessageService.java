@@ -30,4 +30,8 @@ public class MessageService {
         ))
         .toList();
   }
+
+  public void deleteMessagesFromSender(String senderPhoneNumber) {
+    this.messageRepository.deleteBySendersPhoneNumber(senderPhoneNumber);
+  }
 }

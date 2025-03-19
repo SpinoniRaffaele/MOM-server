@@ -38,8 +38,6 @@ public class AuthorizationController {
   public List<Message> connect(@RequestBody User user) {
     if (authorizationService.validateUser(user)) {
       List<Message> newMessages = messageService.retrieveQueuedMessages(user.phoneNumber());
-      //todo: you should delete the queued messages (do not do it for now for testing)
-      //todo: the client should open the websocket connection after processing the new messages
       log.info("User with device {} connected", user.deviceId());
       return newMessages;
     } else {
