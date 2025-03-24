@@ -3,9 +3,11 @@ const stompClient = new StompJs.Client({
 });
 
 stompClient.onConnect = (frame) => {
+  const number = $("#number").val();
   setConnected(true);
   console.log('Connected: ' + frame);
-  stompClient.subscribe('/topic/notifications', (greeting) => {
+  console.log(number);
+  stompClient.subscribe('/topic/notifications/' + number, (greeting) => {
     showGreeting(greeting.body);
   });
 };
@@ -43,7 +45,7 @@ function disconnect() {
 
 function sendName() {
   stompClient.publish({
-    destination: "/app/send",
+    destination: "/app/send/" + $("#numberTo").val(),
     body: $("#name").val()
   });
 }
