@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.rspinoni.momserver.entities.UserEntity;
 import com.rspinoni.momserver.model.User;
-import com.rspinoni.momserver.model.UserWithPreKey;
 import com.rspinoni.momserver.model.exception.UnexistentUserException;
 import com.rspinoni.momserver.repository.UserRepository;
 
@@ -26,15 +25,14 @@ public class UserService {
     return userOpt.isPresent() && userOpt.get().getDeviceId().equals(user.deviceId());
   }
 
-  public void registerUser(UserWithPreKey user) {
+  public void registerUser(User user) {
     Optional<UserEntity> userEntityOpt = this.repository.findById(user.phoneNumber());
     if (userEntityOpt.isPresent()) {
       UserEntity userEntity = userEntityOpt.get();
       userEntity.setDeviceId(user.deviceId());
-      userEntity.setPreKey(user.preKey());
       this.repository.save(userEntity);
     } else {
-      this.repository.save(new UserEntity(user.deviceId(), user.phoneNumber(), user.preKey()));
+      this.repository.save(new UserEntity(user.deviceId(), user.phoneNumber(), null));
     }
   }
 

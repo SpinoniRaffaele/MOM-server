@@ -1,6 +1,7 @@
 package com.rspinoni.momserver.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,10 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.rspinoni.momserver.model.Message;
 import com.rspinoni.momserver.model.User;
-import com.rspinoni.momserver.model.UserWithPreKey;
 import com.rspinoni.momserver.model.exception.InvalidDeviceException;
-import com.rspinoni.momserver.service.UserService;
 import com.rspinoni.momserver.service.MessageService;
+import com.rspinoni.momserver.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -47,8 +47,11 @@ public class AuthorizationController {
 
   @PostMapping("/register")
   @ResponseStatus(HttpStatus.CREATED)
-  public void register(@RequestBody UserWithPreKey user) {
+  public User register(@RequestBody User user) {
     //TODO: validate phoneNumber before registering the device
-    authorizationService.registerUser(user);
+    String id = UUID.randomUUID().toString();
+    User userWithId = new User(id, user.phoneNumber());
+    authorizationService.registerUser(userWithId);
+    return userWithId;
   }
 }
